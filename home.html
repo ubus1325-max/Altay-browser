@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Altay</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #f5f1ee;
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.02), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(255,255,255,0.03), transparent 60%),
+    #050608;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.page {
+  width: 100%;
+  max-width: 1120px;
+  padding: 40px 40px 32px;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-gap: 32px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-section-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.55;
+  margin-bottom: 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  color: rgba(245,241,238,0.8);
+  background: transparent;
+  border: none;
+  text-align: left;
+}
+
+.nav-item-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  background: rgba(255,255,255,0.06);
+}
+
+.nav-item.active {
+  background: linear-gradient(90deg, #3a7364, #58a4ff);
+  color: #0b1014;
+}
+
+.nav-item:not(.active):hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.hero-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 20% 0, #58a4ff, #2ecc71);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.logo-text-main {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.logo-text-sub {
+  font-size: 12px;
+  opacity: 0.65;
+}
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-shell {
+  width: 340px;
+  max-width: 100%;
+  position: relative;
+}
+
+.search-shell input {
+  width: 100%;
+  padding: 10px 36px 10px 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(5,5,8,0.9);
+  color: #f5f1ee;
+  font-size: 13px;
+  outline: none;
+}
+
+.search-shell input::placeholder {
+  color: rgba(245,241,238,0.5);
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.search-hint {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  opacity: 0.6;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.16);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 20px;
+}
+
+.card {
+  border-radius: 16px;
+  padding: 14px 14px 16px;
+  background: rgba(10,12,16,0.9);
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.card-title {
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.card-subtitle {
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.site-tile {
+  border-radius: 12px;
+  padding: 8px 6px;
+  background: rgba(255,255,255,0.02);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+}
+
+.site-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #050608;
+}
+
+.site-label {
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+.site-avatar--orange { background: #ffb15a; }
+.site-avatar--blue { background: #7cb3ff; }
+.site-avatar--red { background: #ff8080; }
+.site-avatar--purple { background: #c88bff; }
+
+.mini-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.mini-item {
+  border-radius: 10px;
+  padding: 8px 8px;
+  background: rgba(255,255,255,0.02);
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mini-item-title {
+  opacity: 0.9;
+}
+
+.mini-item-meta {
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 1fr;
+    padding: 24px 16px 20px;
+  }
+  .sidebar {
+    display: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+  <aside class="sidebar">
+    <div class="sidebar-section-title">Workspace</div>
+    <button class="nav-item active" data-url="about:blank">
+      <span class="nav-item-icon">+</span>
+      <span>New Session</span>
+    </button>
+    <button class="nav-item" data-url="https://github.com/">
+      <span class="nav-item-icon">⌘</span>
+      <span>Coding Projects</span>
+    </button>
+    <button class="nav-item" data-url="https://scholar.google.com/">
+      <span class="nav-item-icon">◎</span>
+      <span>Research Mode</span>
+    </button>
+    <button class="nav-item" data-url="https://read.readwise.io/">
+      <span class="nav-item-icon">★</span>
+      <span>Reading List</span>
+    </button>
+
+    <div class="sidebar-footer">ALTAY • Navigate the digital frontier</div>
+  </aside>
+
+  <main class="main">
+    <section class="hero">
+      <div class="hero-left">
+        <div class="logo-mark">A</div>
+        <div>
+          <div class="logo-text-main">ALTAY</div>
+          <div class="logo-text-sub">Navigate the Digital Frontier</div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="search-shell">
+          <span class="search-icon">⌕</span>
+          <input id="search" placeholder="Quick search the web..." autofocus />
+          <span class="search-hint">Enter ↵</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Bookmarks & Quick Access</div>
+            <div class="card-subtitle">Pinned destinations you open the most</div>
+          </div>
+        </div>
+        <div class="card-grid">
+          <button class="site-tile" data-url="https://mail.google.com/">
+            <div class="site-avatar site-avatar--orange">G</div>
+            <div class="site-label">Gmail</div>
+          </button>
+          <button class="site-tile" data-url="https://www.youtube.com/">
+            <div class="site-avatar site-avatar--blue">YT</div>
+            <div class="site-label">YouTube</div>
+          </button>
+          <button class="site-tile" data-url="https://www.reddit.com/">
+            <div class="site-avatar site-avatar--red">RD</div>
+            <div class="site-label">Reddit</div>
+          </button>
+          <button class="site-tile" data-url="https://github.com/">
+            <div class="site-avatar site-avatar--purple">GH</div>
+            <div class="site-label">GitHub</div>
+          </button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Recent Sessions</div>
+            <div class="card-subtitle">Pick up where you left off</div>
+          </div>
+        </div>
+        <div class="mini-list">
+          <button class="mini-item" data-url="https://github.com/search?q=altay+browser">
+            <span class="mini-item-title">Altay roadmap & ideas</span>
+            <span class="mini-item-meta">Earlier today</span>
+          </button>
+          <button class="mini-item" data-url="https://www.electronjs.org/docs/latest/api/browser-view">
+            <span class="mini-item-title">Electron BrowserView docs</span>
+            <span class="mini-item-meta">Yesterday</span>
+          </button>
+          <button class="mini-item" data-url="https://dribbble.com/search/browser%20dashboard">
+            <span class="mini-item-title">Design inspiration for new tab</span>
+            <span class="mini-item-meta">This week</span>
+          </button>
+        </div>
+      </article>
+    </section>
+  </main>
+</div>
+
+<script>
+  const input = document.getElementById('search');
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const query = input.value.trim();
+      if (!query) return;
+      const url = 'https://duckduckgo.com/?q=' + encodeURIComponent(query);
+      window.location.href = url;
+    }
+  });
+
+  document.querySelectorAll('[data-url]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const target = el.getAttribute('data-url');
+      if (!target) return;
+      if (target === 'about:blank') {
+        window.location.reload();
+      } else {
+        window.location.href = target;
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

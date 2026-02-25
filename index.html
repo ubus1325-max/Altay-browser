@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="altay">
+
+  <div id="sidebar">
+    <button id="add-tab">+</button>
+    <div id="tabs"></div>
+  </div>
+
+  <div id="content">
+    <div id="topbar">
+      <button id="btn-back" class="nav-btn" title="Back">←</button>
+      <button id="btn-forward" class="nav-btn" title="Forward">→</button>
+      <input id="url-input" type="text" placeholder="Search or enter address" spellcheck="false" />
+      <button id="btn-settings" class="nav-btn" title="Settings">⚙</button>
+      <div id="settings-menu" class="settings-menu hidden">
+        <div class="settings-title">Search engine</div>
+        <button class="settings-option" data-engine="google">Google</button>
+        <button class="settings-option" data-engine="duckduckgo">DuckDuckGo</button>
+        <button class="settings-option" data-engine="bing">Bing</button>
+        <hr class="settings-separator" />
+        <div class="settings-title">Theme</div>
+        <button class="settings-theme-option" data-theme="altay">Altay (default)</button>
+        <button class="settings-theme-option" data-theme="graphite">Graphite</button>
+        <button class="settings-theme-option" data-theme="red">Red</button>
+        <button class="settings-theme-option" data-theme="blue">Blue</button>
+        <button class="settings-theme-option" data-theme="green">Green</button>
+        <button class="settings-theme-option" data-theme="purple">Purple</button>
+        <button class="settings-theme-option" data-theme="white">White</button>
+        <hr class="settings-separator" />
+        <div class="settings-title">Wallpaper</div>
+        <button id="settings-wallpaper-toggle" class="settings-theme-option" data-wallpaper-toggle="on">
+          Toggle wallpaper
+        </button>
+        <hr class="settings-separator" />
+        <div class="settings-title">History</div>
+        <div id="history-list"></div>
+        <button id="history-clear" class="settings-theme-option">Clear history</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
